@@ -11,16 +11,14 @@ public class Program
 			Console.WriteLine("invalid input");
 			return;
 		}
-		for(int i=1;i<arr.Length-1;i++)
+		for(int i=1;i<arr.Length-1;i++) // n
 		{
-			int left = find_Max(arr,0,i);
-			int right = find_Max(arr,i,(arr.Length));
-			Console.WriteLine("Left" + left + "Right" + right + "i" + i + "Total" + total + "arr[i]" + arr[i]);
-			total = total + ((findMin(left,right) - arr[i])> 0 ?(findMin(left,right) - arr[i]) : 0); 
-			
+			int left = find_Max(arr,0,i); //n
+			int right = find_Max(arr,i,(arr.Length));//n
+			total = total + ((findMin(left,right) - arr[i])> 0 ?(findMin(left,right) - arr[i]) : 0); //1
 		}
 		Console.WriteLine(total);
-		
+		//n(n+n+1) => n(2n+1)
 	}
 	public static int find_Max(int[] array,int start,int end)
 	{
