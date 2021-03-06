@@ -1,0 +1,90 @@
+//Rextester.Program.Main is the entry point for your code. Don't change it.
+//Microsoft (R) Visual C# Compiler version 2.9.0.63208 (958f2354)
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+namespace Rextester
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            LinkedList l1 = new LinkedList(7);
+            l1.Add(1);
+            l1.Add(6);
+            //Console.WriteLine(LinkedList.GetNumber(l1.Head,0));
+            LinkedList l2 = new LinkedList(5);
+            l2.Add(9);
+            l2.Add(2);
+            Console.WriteLine(LinkedList.GetNumber(l2.Head,0) + LinkedList.GetNumber(l1.Head,0));
+            LinkedList lResult = LinkedList.GetSumResultInLinkedList(LinkedList.GetNumber(l2.Head,0),LinkedList.GetNumber(l1.Head,0));
+            lResult.printAllNodes();
+        }
+        
+        public class Node{
+            public int Data {get;set;}
+            public Node Next {get;set;}
+        }
+        public class LinkedList{
+        private Node head;
+            public Node Head{get {return head;}}
+            public LinkedList(int data)
+            {
+                Node toAdd = new Node();
+                toAdd.Data = data;
+                head = toAdd;
+            }
+            public void Add(int data) 
+            {
+                Node toAdd = new Node();
+                toAdd.Data = data;
+                Node current = head;
+                while(current.Next != null)
+                {
+                    current = current.Next;
+                }
+                current.Next = toAdd;
+            }
+            public void printAllNodes() 
+            {
+                Node current = head;
+                while (current != null) 
+                {
+                    Console.WriteLine(current.Data);
+                    current = current.Next;
+                }
+            }
+            
+            public static int GetNumber(Node _Head,double pow)
+            {
+                if(_Head == null)
+                {
+                    return 0;
+                }
+                return (GetNumber(_Head.Next,pow+1) + (_Head.Data * (int)Math.Pow(Convert.ToDouble(10),pow)));
+            }
+            public static LinkedList GetSumResultInLinkedList(int s1,int s2)
+            {
+                LinkedList res = null;
+                int remainder;
+                int sum = s1  + s2;
+                while(sum != 0)
+                {
+                    remainder = sum % 10;
+                    if(res== null)
+                    {
+                        res = new LinkedList(remainder);
+                    }
+                    else{
+                        res.Add(remainder);
+                    }
+                    sum=sum/10;
+                }
+                return res;
+            }
+        }
+    }
+}
