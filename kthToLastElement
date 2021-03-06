@@ -1,0 +1,72 @@
+//Rextester.Program.Main is the entry point for your code. Don't change it.
+//Microsoft (R) Visual C# Compiler version 2.9.0.63208 (958f2354)
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+namespace Rextester
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            //Your code goes here
+            LinkedList<int> my_list = new LinkedList<int>();
+            my_list.AddLast(10);
+            my_list.AddLast(20);
+            my_list.AddLast(30);
+            my_list.AddLast(40);
+            my_list.AddLast(50);
+            my_list.AddLast(60);
+           // Console.WriteLine("Count/2 = " +  my_list.Count/2);
+            Remove(my_list.First,my_list.Count/2);
+           Print(my_list);
+            //kthToLastElement(my_list.First,2);
+        }
+        
+        public static void Remove(LinkedListNode<int> head,int index)
+        {
+            int processTill = index - 1;
+            LinkedListNode<int> Temp = head;
+            int counter = 0;
+            while( Temp != null && counter < processTill)
+            {
+                Temp = Temp.Next;
+                counter++;
+            }
+            Console.WriteLine("Current To Node " + Temp.Value);
+            Console.WriteLine("Value To Delete " + Temp.Next.Value);
+        }
+
+        
+        public static void Print(LinkedList<int> data)
+        {
+            foreach(var node in data)
+            {
+                Console.WriteLine(node);
+            }
+        }
+        
+        public static void kthToLastElement(LinkedListNode<int> head,int k)
+        {
+            LinkedListNode<int>  ptr1 = head;
+            LinkedListNode<int>  ptr2 = head;
+            for(int i=0;i<k-1;i++)
+            {
+                ptr1 = ptr1.Next;// It Will Make Increase The Fast Pointer
+            }
+            Console.WriteLine("PTR1 Value : " + ptr1.Value);
+            while(ptr1.Next != null)
+            {
+                Console.Write("Before PTR1 Value " + ptr1.Value);
+                Console.WriteLine(" PTR2 Value " + ptr2.Value);
+                ptr1 = ptr1.Next;
+                ptr2 = ptr2.Next;
+                
+            }
+            Console.WriteLine("Final Answer " + ptr2.Value);
+        }
+    }
+}
