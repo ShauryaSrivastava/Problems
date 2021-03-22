@@ -1,0 +1,55 @@
+using System;
+					
+public class Program
+{
+	public static void Main()
+	{
+		int[] array = new int[]{10,20,100,90,40,30};
+		int lb = 0;
+		int ub = array.Length;
+		QuickSort(array,lb,ub);
+		foreach(int val in array)
+		{
+			Console.WriteLine(val);
+		}
+	}
+	
+	public static void QuickSort(int[] array,int lb,int ub)
+	{
+		if(lb < ub)
+		{
+			int pos = QuickS(array,lb,ub);
+			if(pos > 1)
+			QuickSort(array,lb,pos);
+			if(pos + 1 < ub)
+			QuickSort(array,pos+1,ub);
+		}
+	}
+	
+	public static int QuickS(int[] array,int lb,int ub)
+	{
+		int piv = array[lb];
+		int start = lb;
+		int end = ub -1;
+		while(start < end)
+		{
+			while(array[start] < piv)
+			{start++;}
+			while(array[end]> piv)
+			{end--;}
+			if(start < end)
+			{
+				int temp = array[start];
+				array[start] = array[end];
+				array[end] = temp;
+			}else
+			{
+				return end;
+			}
+		}
+		int temp1 = array[start];
+		array[start] = array[end];
+		array[end] = temp1;
+		return end;
+	}
+}
