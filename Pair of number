@@ -1,0 +1,76 @@
+using System;
+using System.Collections;				
+public class Program
+{
+	public static void Main()
+	{
+		int[] array = new int[]{10,5,2,3,-6,9,11};
+		int sum = 4;
+		Console.WriteLine("Hello");
+		Console.WriteLine(pair(array,array.Length ,sum));
+		Console.WriteLine(UsingHashTable(array,sum));
+	}
+	
+	static string Pairs(int[] arr,int len,int sum)
+	{
+		string p = "";
+		Array.Sort(arr);
+		foreach(var x in arr)
+		{
+			Console.Write(x + ",");
+		}
+		Console.WriteLine("");
+		for(int i=0;i<len;i++)
+		{
+			int ex = -1;
+			int diff = sum - arr[i];
+			
+			ex = BinarySearch(arr,i+1,len-1,diff);
+			if(ex != -1)
+			{
+				p+=  " " +arr[i].ToString() + "," + ex.ToString(); 
+			}
+		}
+		return p;
+		
+	}
+	static string UsingHashTable(int[] arr,int req)
+	{
+		Hashtable num = new Hashtable();
+		string p= "";
+		for(int i = 0;i< arr.Length;i++)
+		{
+			
+			int x = req - arr[i];
+		
+			if(num.ContainsKey(x))
+			{
+				p+=  " " +arr[i].ToString() + "," + num[x].ToString(); 
+			}
+			num.Add(arr[i],arr[i]);
+		}
+		return p;
+	}
+	
+	static int BinarySearch(int[] arr,int s,int e,int req)
+	{
+		int halt = s;
+	   while(s <= e)
+	   {
+		   int mid = (s + (e-1)) /2;
+		  
+		   if(arr[mid] == req && mid >= s)
+		   {
+			   return arr[mid];
+		   }
+		   if(req > arr[mid])
+		   {
+			   s= mid + 1;
+		   }else
+		   {
+			   e = mid -1;
+		   }
+	   }
+		return -1;
+	}
+}
