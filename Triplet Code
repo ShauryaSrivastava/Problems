@@ -1,0 +1,120 @@
+using System;
+
+public class Program
+{
+	public static void Main()
+	{
+		int[] array = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 15};
+		int sum = 18;
+		int len = array.Length;
+		//Console.WriteLine(BFWay(array,len,sum));
+		//Console.WriteLine(EffeWay(array,len,sum));
+		Console.WriteLine(TwoPointerApproach(array,len,sum));
+		
+	}
+	//Method 1 Two Pointer Approach
+	public static string TwoPointerApproach(int[] array,int len,int sum)
+	{
+		Console.WriteLine("TwoPointerApproach");
+		string p="";
+		Array.Sort(array);
+		for(int i=0;i<=len-3;i++)
+		{
+			int j=i+1,k=len-1;
+			while(j < k)
+			{
+				int curr = 0;
+				curr += array[i];
+				curr+= array[j];
+				curr+= array[k];
+				if((curr)== sum)
+				{
+					
+					p+= " " + array[i].ToString() + "," + array[j].ToString() + "," + array[k].ToString() + "\n";  
+					j++;
+					k--;
+				}
+				else if(curr > sum)
+				{
+					k--;
+				}
+				else
+				{
+					j++;
+				}
+				
+			}
+		
+		}
+		return p;
+	}
+	//Method 2 Using Binary Search
+	public static string EffeWay(int[] array, int len, int sum)
+	{
+		string p="";
+		Array.Sort(array);
+		for(int i=0;i<len-3;i++)
+		{
+			int igap = sum - array[i];
+			for(int j=i+1;j< len;j++)
+			{
+				int sgap = igap - array[j];
+				int value = BinarySearch(array,j+1,len-1,sgap);
+				if(value != -1)
+				{
+					p += " " + array[i].ToString() + "," + array[j].ToString() + "," + value.ToString() + "\n";
+				}
+			}
+		}
+		
+		return p;
+	}
+	static int BinarySearch(int[] arr,int s,int e,int req)
+	{
+		int halt = s;
+	   while(s <= e)
+	   {
+		   int mid = (e + s) /2;
+		  
+		   if(arr[mid] == req)
+		   {
+			   if(mid > s)
+			   {
+				   return -1;
+			   }
+			   return arr[mid];
+		   }
+		   if(arr[mid] > req)
+		   {
+			   e= mid - 1;
+		   }else
+		   {
+			   s = mid + 1;
+		   }
+	   }
+		return -1;
+	}
+	// Method 3 BF Approach
+	public static string BFWay(int[] array, int len, int sum)
+	{
+		string p = "";
+		for (int i = 0; i < len; i++)
+		{
+			int req = array[i];
+			for (int j = i + 1; j < len; j++)
+			{
+				int req1 = array[j];
+				for (int k = j + 1; k < len; k++)
+				{
+					int req2 = array[k];
+					if ((req + req1 + req2) == sum)
+					{
+						p += " " + req.ToString() + "," + req1 + "," + req2 + "\n";
+					}
+				}
+			}
+		}
+
+		return p;
+	}
+}
