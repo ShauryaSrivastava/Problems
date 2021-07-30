@@ -1,0 +1,36 @@
+using System;
+					
+public class Program
+{
+	public static void Main()
+	{
+		int[] array = new int[]{5, 6, 1, 2, 3, 4, 5, 4, 3, 2,0,1,2,3,-2,4};
+		int isLargest = 0;
+		
+		int i=1;
+		int len = array.Length;
+		while(i < len-2 )
+		{
+			if(array[i] > array[i+1] && array[i] > array[i-1])
+			{
+				int j=i;
+				int cnt = 0;
+				while(j>=1 && array[j]>array[j-1])
+				{
+					j--;
+					cnt++;
+				}
+				while(i<=len-2 && array[i]>array[i+1])
+				{
+					i++;
+					cnt++;
+				}
+				isLargest = cnt > isLargest ? cnt : isLargest;
+			}
+			else{
+			i++;
+			}
+		}
+		Console.WriteLine(isLargest);
+	}
+}
