@@ -1,0 +1,35 @@
+using System;
+using System.Collections.Generic;					
+public class Program
+{
+	public static void Main()
+	{
+		int[] array = new int[]{1,9,3,0,18,5,2,4,10,7,12,6};
+		int len = array.Length;
+		var unorderedList = new List<int>();
+		unorderedList.AddRange(array); //O(n)
+		int largest=0;
+		int intial = 0;
+		while(intial < len)
+		{
+			int lowerBound = array[intial]-1;
+			if(!unorderedList.Contains(lowerBound))
+			{
+				int count = 0;
+				lowerBound++;
+				while(unorderedList.Contains(lowerBound))
+				{
+					count++;
+					lowerBound++;
+				}
+				largest = count > largest? count : largest;
+				
+			}
+			intial++;
+		}
+		Console.WriteLine(largest);
+		
+		
+		
+	}
+}
