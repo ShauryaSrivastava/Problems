@@ -1,0 +1,36 @@
+using System;
+					
+public class Program
+{
+	public static void Main()
+	{
+		int[] array = new int[]{0,1,0,2,1,0,1,3,2,1,2,1};
+		int len = array.Length;
+		int[] leftArray = new int[len];
+		int[] rightArray = new int[len];
+		int lHighest = -1;
+		int rHighest = -1;
+		int maxWater = 0;
+		for(int i=0;i<len;i++)
+		{
+			lHighest = lHighest < array[i] ? array[i] : lHighest;
+			leftArray[i]=lHighest;
+		}
+		for(int i=len-1;i>=0;i--)
+		{
+			rHighest = rHighest < array[i] ? array[i] : rHighest;
+			rightArray[i]=rHighest;
+		}
+		for(int i=0;i< len;i++)
+		{
+			int min = leftArray[i] > rightArray[i] ? rightArray[i] : leftArray[i];
+			int temp = min - array[i];
+			if(temp>0)
+			{
+				maxWater+=temp;
+			}
+		}
+		Console.WriteLine(maxWater);
+		
+	}
+}
